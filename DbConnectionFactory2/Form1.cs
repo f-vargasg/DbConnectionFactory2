@@ -1,4 +1,5 @@
-﻿using SampleBE;
+﻿using Oracle.DataAccess.Client;
+using SampleBE;
 using SampleBL;
 using System;
 using System.Collections.Generic;
@@ -106,6 +107,41 @@ namespace DbConnectionFactory2
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void butOutParam_Click(object sender, EventArgs e)
+        {
+            using (OracleConnection objConn = new OracleConnection("Data Source=pruebas3; User ID=mytest; Password=oracle"))
+            {
+                OracleCommand objCmd = new OracleCommand();
+                objCmd.Connection = objConn;
+                objCmd.CommandText = "Pruebas_varias.suma";
+                objCmd.CommandType = CommandType.StoredProcedure;
+                objCmd.Parameters.Add("p1", OracleDbType.Int32).Value = 20;
+                objCmd.Parameters.Add("p2", OracleDbType.Int32).Value = 20;
+                objCmd.Parameters.Add("p3", OracleDbType.Int32).Direction = ParameterDirection.Output;
+                try
+                {
+                    objConn.Open();
+                    objCmd.ExecuteNonQuery();
+                    // int res = Convert.ToInt32(objCmd.Parameters["pout_count"].Value);
+                    int  res = int.Parse(  objCmd.Parameters["p3"].Value.ToString());
+                    string scrap = string.Format("Resultado de la suma {0}", res);
+                    // System.Console.WriteLine("Resultado de la sma {0}", objCmd.Parameters["pout_count"].Value);
+                    System.Console.WriteLine(scrap);
+                    txtOutput.Text = scrap;
+
+                }
+                catch (Exception ex)
+                {
+                    // System.Console.WriteLine("Exception: {0}", ex.ToString());
+                    string err = string.Format("Exception: {0}", ex.ToString());
+                    System.Console.WriteLine(err);
+                    MessageBox.Show(err);
+                    
+                }
+                objConn.Close();
+            }
         }
     }
 }
