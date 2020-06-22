@@ -22,5 +22,39 @@ namespace SampleBL
             res = this.perCliDL.LoadProfile();
             return res;
         }
+
+        public int Suma(int a, int b)
+        {
+            int res = 0;
+            try
+            {
+                res = this.perCliDL.Suma(a, b);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            return res;
+        }
+
+        public int Suma2(int a, int b)
+        {
+            int res = 0;
+            try
+            {
+                res = this.perCliDL.Suma2(a, b);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            return res;
+        }
     }
 }

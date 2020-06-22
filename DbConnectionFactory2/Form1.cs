@@ -14,6 +14,8 @@ namespace DbConnectionFactory2
 {
     public partial class Form1 : Form
     {
+
+        private const string StrConnToDB = "Data Source = pruebas3; User ID = mytest; Password=oracle";
         PerfilClienteBL perCliBL;
 
         public Form1()
@@ -111,7 +113,7 @@ namespace DbConnectionFactory2
 
         private void butOutParam_Click(object sender, EventArgs e)
         {
-            using (OracleConnection objConn = new OracleConnection("Data Source=pruebas3; User ID=mytest; Password=oracle"))
+            using (OracleConnection objConn = new OracleConnection(StrConnToDB))
             {
                 OracleCommand objCmd = new OracleCommand();
                 objCmd.Connection = objConn;
@@ -141,6 +143,97 @@ namespace DbConnectionFactory2
                     
                 }
                 objConn.Close();
+            }
+        }
+
+        private void prvPrintReader(OracleDataReader objReader)
+        {
+            string line = string.Empty;
+            string scrap = string.Empty;
+            for (int i = 0; i < objReader.FieldCount; i++)
+            {
+                scrap = String.Format("{0}\t", objReader.GetName(i));
+                line += scrap;
+                System.Console.Write(scrap);
+            }
+            txtOutput.Text += (line + Environment.NewLine);
+            
+            System.Console.Write("\n");
+
+            while (objReader.Read())
+            {
+                line = string.Empty;
+                for (int i = 0; i < objReader.FieldCount; i++)
+                {
+                    scrap = string.Format("{0}\t", objReader[i].ToString());
+                    System.Console.Write(scrap);
+                    line += scrap;
+                }
+                System.Console.Write("\n");
+                txtOutput.Text += (line + Environment.NewLine);
+            }
+        }
+        private void butReadCursor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OracleConnection objConn = new OracleConnection(StrConnToDB))
+                {
+                    OracleCommand objCmd = new OracleCommand();
+                    objCmd.Connection = objConn;
+                    objCmd.CommandText = "Pruebas_varias.get_datosCursor";
+                    objCmd.CommandType = CommandType.StoredProcedure;
+                    objCmd.Parameters.Add("pcurData", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                    try
+                    {
+                        objConn.Open();
+                        OracleDataReader objReader = objCmd.ExecuteReader();
+                        prvPrintReader(objReader);
+                    }
+                    catch (Exception ex)
+                    {
+                        string msgErr = string.Format( "Exception: {0}", ex.ToString());
+                        // System.Console.WriteLine(msgERr);
+                        MessageBox.Show(msgErr);
+                    }
+                    objConn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void butDoTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int sumar = this.perCliBL.Suma(2, 3);
+
+
+                txtTestOut.Text = Convert.ToString(sumar);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void butFuncTool_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int sumar = this.perCliBL.Suma(2, 3);
+
+
+                txtTestOut.Text = Convert.ToString(sumar);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

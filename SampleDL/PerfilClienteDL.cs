@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -13,9 +15,9 @@ namespace SampleDL
         {
             List<PerfilClienteBE> res = new List<PerfilClienteBE>();
 
-            using (IDbConnection connection = database.CreateOpenConnection())
+            using (DbConnection connection = database.CreateOpenConnection())
             {
-                using (IDbCommand command = database.CreateCommand("SELECT * FROM CL_AMBPERFIL", connection))
+                using (DbCommand command = database.CreateCommand("SELECT * FROM CL_AMBPERFIL", connection))
                 {
                     using (IDataReader reader = command.ExecuteReader())
                     {
@@ -30,6 +32,98 @@ namespace SampleDL
                             res.Add(pcBe);
                         }
                     }
+                }
+            }
+            return res;
+        }
+
+
+        public int Suma(int a, int b)
+        {
+            int res = 0;
+            using (DbConnection connection = database.CreateOpenConnection())
+            {
+                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+                {
+                    try
+                    {
+                        DbParameter param = database.CreateParameter("p1", DbType.Int32, 10);
+                        command.Parameters.Add(param);
+                        param = database.CreateParameter("p2", DbType.Int32, 30);
+                        command.Parameters.Add(param);
+                        param = database.CreateParameter("p3", DbType.Int32, ParameterDirection.Output);
+                        command.Parameters.Add(param);
+                        command.ExecuteNonQuery();
+                        res = int.Parse(command.Parameters["p3"].Value.ToString());
+                        // string scrap = string.Format("Resultado de la suma {0}", res);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                }
+            }
+            return res;
+
+        }
+
+        public int Suma2(int a, int b)
+        {
+            int res = 0;
+            using (DbConnection connection = database.CreateOpenConnection())
+            {
+                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+                {
+                    try
+                    {
+                        DbParameter param = database.CreateParameter("v1", DbType.Int32, 10);
+                        command.Parameters.Add(param);
+                        param = database.CreateParameter("v2", DbType.Int32, 30);
+                        command.Parameters.Add(param);
+                        param = database.CreateParameter("return_value", DbType.Int32, ParameterDirection.ReturnValue);
+                        command.Parameters.Add(param);
+                        command.ExecuteNonQuery();
+                        res = int.Parse(command.Parameters["return_value"].Value.ToString());
+                        // string scrap = string.Format("Resultado de la suma {0}", res);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                }
+            }
+            return res;
+        }
+
+
+        public DbDataReader GetDataCursor()
+        {
+            DbDataReader res = null;
+            using (DbConnection connection = database.CreateOpenConnection())
+            {
+                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.get_datosCursor", connection))
+                {
+                    try
+                    {
+                        DbParameter param = database.CreateParameter("p1", DbType.Int32, 10);
+                        command.Parameters.Add(param);
+                        param = database.CreateParameter("p2", DbType.Int32, 30);
+                        command.Parameters.Add(param);
+                        param = database.CreateParameter("p3", DbType.Int32, ParameterDirection.Output);
+                        command.Parameters.Add(param);
+                        command.ExecuteNonQuery();
+                        res = int.Parse(command.Parameters["p3"].Value.ToString());
+                        // string scrap = string.Format("Resultado de la suma {0}", res);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
                 }
             }
             return res;
