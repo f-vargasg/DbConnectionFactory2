@@ -49,6 +49,7 @@
     <Compile Include="DatabaseFactorySectionHandler.cs" />
     <Compile Include="DbConfigInstanceCollection.cs" />
     <Compile Include="DbConfigInstanceElement.cs" />
+    <Compile Include="MsSqlServerDatabase.cs" />
     <Compile Include="OracleDatabase.cs" />
     <Compile Include="OracleOdpDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

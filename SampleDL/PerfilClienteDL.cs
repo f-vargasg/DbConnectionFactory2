@@ -99,6 +99,7 @@ namespace SampleDL
         }
 
 
+        /*
         public DbDataReader GetDataCursor()
         {
             DbDataReader res = null;
@@ -127,6 +128,7 @@ namespace SampleDL
                 }
             }
             return res;
-        }
+        }*/
     }
+        
 }
