@@ -18,7 +18,10 @@ namespace DbConnFactory
 
         public override DbConnection CreateOpenConnection()
         {
-            return new SqlConnection();
+            SqlConnection connection = (SqlConnection)CreateConnection();
+            connection.Open();
+
+            return connection;
         }
 
 
