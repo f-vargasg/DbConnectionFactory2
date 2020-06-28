@@ -43,7 +43,8 @@ namespace SampleDL
             int res = 0;
             using (DbConnection connection = database.CreateOpenConnection())
             {
-                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+                // using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+                using (DbCommand command = database.CreateStoredProcCommand("Suma", connection))
                 {
                     try
                     {
@@ -74,7 +75,8 @@ namespace SampleDL
             int res = 0;
             using (DbConnection connection = database.CreateOpenConnection())
             {
-                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+                // using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+                using (DbCommand command = database.CreateStoredProcCommand("Suma2", connection))
                 {
                     try
                     {

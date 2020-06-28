@@ -13,7 +13,7 @@ namespace SampleDL
         {
             try
             {
-                _database = DatabaseFactory.CreateDatabase("MyConnection4");
+                _database = DatabaseFactory.CreateDatabase(2);
             }
             catch (Exception excep)
             {

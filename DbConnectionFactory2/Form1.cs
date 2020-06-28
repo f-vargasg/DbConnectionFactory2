@@ -226,7 +226,7 @@ namespace DbConnectionFactory2
         {
             try
             {
-                int sumar = this.perCliBL.Suma(2, 3);
+                int sumar = this.perCliBL.Suma2(2, 3);
 
 
                 txtTestOut.Text = Convert.ToString(sumar);
