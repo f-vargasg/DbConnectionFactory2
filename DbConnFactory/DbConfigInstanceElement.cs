@@ -37,12 +37,12 @@ namespace DbConnFactory
             }
         }
 
-        [ConfigurationProperty("id")]
-        public int Id
+        [ConfigurationProperty("classProvider")]
+        public string ClassProvider
         {
-            get { return Convert.ToInt32( this["id"]); }
+            get { return Convert.ToString(this["classProvider"]); }
         }
-        
-    
+
+
     }
 }

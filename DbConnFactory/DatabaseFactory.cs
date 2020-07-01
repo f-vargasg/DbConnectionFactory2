@@ -13,57 +13,8 @@ namespace DbConnFactory
         public static DatabaseFactorySectionHandler sectionHandler;
        
         private DatabaseFactory() { }
-        public static Database CreateDatabase(int pId)
-        {
-            Database res = null;
-            bool found = false;
-            try
-            {
-                var sectionHandler = ConfigurationManager.GetSection("DatabaseFactoryConfiguration")
-                                 as DatabaseFactorySectionHandler;
-                IEnumerator wen = sectionHandler.Instances.GetEnumerator();
-                while (wen.MoveNext() && !found)
-                {
-                    DbConfigInstanceElement item = (DbConfigInstanceElement)(wen.Current);
-                    if (item.Id == pId )
-                    {
-                        Console.WriteLine("Encontrado !!! " + Convert.ToString ( item.Id));
-                        found = true;
-                        // Verify a DatabaseFactoryConfiguration line exists in the web.config.
-                        /* if (item.Name.Length <= 0)
-                        {
-                            throw new Exception("Database name not defined in DatabaseFactoryConfiguration section of web.config.");
-                        }*/
-                        try
-                        {
-                            // Find the class
-                            Type database = Type.GetType(item.Name);
-                            // Get it's constructor
-                            ConstructorInfo constructor = database.GetConstructor(new Type[] { });
-                            // Invoke it's constructor, which returns an instance.
-                            Database createdObject = (Database)constructor.Invoke(null);
-                            // Initialize the connection string property for the database.
-                            createdObject.connectionString = item.ConnectionString;
-                            // Pass back the instance as a Database
-                            res = createdObject;
-                            // return createdObject;
-                        }
-                        catch (Exception excep)
-                        {
-                            throw new Exception("Error instantiating database " + item.Name + ". " + excep.Message);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            
-            return res;
-        }
 
-        public static Database CreateDatabase(string pConnStr)
+        public static Database CreateDatabase(string pName)
         {
             Database res = null;
             bool found = false;
@@ -76,9 +27,9 @@ namespace DbConnFactory
                 {
                     DbConfigInstanceElement item = (DbConfigInstanceElement)(wen.Current);
                     string scrap = item.ConnectionStringName;
-                    if (item.ConnectionStringName.CompareTo(pConnStr) == 0)
+                    if (item.Name.CompareTo(pName) == 0)
                     {
-                        Console.WriteLine("Encontrado !!! " + Convert.ToString(item.Id));
+                        Console.WriteLine("Encontrado !!! " + Convert.ToString(item.Name));
                         found = true;
                         // Verify a DatabaseFactoryConfiguration line exists in the web.config.
                         /* if (item.Name.Length <= 0)
@@ -88,7 +39,7 @@ namespace DbConnFactory
                         try
                         {
                             // Find the class
-                            Type database = Type.GetType(item.Name);
+                            Type database = Type.GetType(item.ClassProvider);
                             // Get it's constructor
                             ConstructorInfo constructor = database.GetConstructor(new Type[] { });
                             // Invoke it's constructor, which returns an instance.

@@ -236,5 +236,40 @@ namespace DbConnectionFactory2
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void butFuncNativa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OracleConnection objConn = new OracleConnection(StrConnToDB))
+                {
+                    OracleCommand objCmd = new OracleCommand();
+                    objCmd.Connection = objConn;
+                    objCmd.CommandText = "Pruebas_Varias.suma";
+                    objCmd.CommandType = CommandType.StoredProcedure;
+                    objCmd.Parameters.Add("return_value", OracleDbType.Int32).Direction = ParameterDirection.ReturnValue;
+                    objCmd.Parameters.Add("v1", OracleDbType.Int32).Value = 20;
+                    objCmd.Parameters.Add("v2", OracleDbType.Int32).Value = 10;
+                    try
+                    {
+                        objConn.Open();
+                        objCmd.ExecuteNonQuery();
+                        string res = objCmd.Parameters["return_value"].Value.ToString();
+                        System.Console.WriteLine("Number of employees in department 20 is {0}", res );
+                        txtOutput.Text = res;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Console.WriteLine("Exception: {0}", ex.ToString());
+                    }
+                    objConn.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
