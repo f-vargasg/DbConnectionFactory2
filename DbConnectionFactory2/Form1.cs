@@ -4,6 +4,7 @@ using SampleBL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -103,6 +104,8 @@ namespace DbConnectionFactory2
             {
                 // perCliBL.LoadProfile();
                 BindGrid();
+                string valor = ConfigurationManager.AppSettings["valor1"];
+                MessageBox.Show(valor);
             }
             catch (Exception ex)
             {
