@@ -1,4 +1,6 @@
-﻿using SampleBE;
+﻿// #define sqlServerDb
+
+using SampleBE;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,8 +45,11 @@ namespace SampleDL
             int res = 0;
             using (DbConnection connection = database.CreateOpenConnection())
             {
-                // using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+#if !sqlServerDb
+                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+#else
                 using (DbCommand command = database.CreateStoredProcCommand("Suma", connection))
+#endif
                 {
                     try
                     {
@@ -75,16 +80,19 @@ namespace SampleDL
             int res = 0;
             using (DbConnection connection = database.CreateOpenConnection())
             {
-                // using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+#if !sqlServerDb
+                using (DbCommand command = database.CreateStoredProcCommand("Pruebas_varias.suma", connection))
+#else
                 using (DbCommand command = database.CreateStoredProcCommand("Suma2", connection))
+#endif
                 {
                     try
                     {
-                        DbParameter param = database.CreateParameter("v1", DbType.Int32, 10);
+                        DbParameter param = database.CreateParameter("return_value", DbType.Int32, ParameterDirection.ReturnValue);
                         command.Parameters.Add(param);
-                        param = database.CreateParameter("v2", DbType.Int32, 30);
+                        param = database.CreateParameter("v1", DbType.Int32, 30);
                         command.Parameters.Add(param);
-                        param = database.CreateParameter("return_value", DbType.Int32, ParameterDirection.ReturnValue);
+                        param = database.CreateParameter("v2", DbType.Int32, 4);
                         command.Parameters.Add(param);
                         command.ExecuteNonQuery();
                         res = int.Parse(command.Parameters["return_value"].Value.ToString());

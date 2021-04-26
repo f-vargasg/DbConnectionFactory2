@@ -37,9 +37,10 @@
             this.butOutParam = new System.Windows.Forms.Button();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.tbPgTest = new System.Windows.Forms.TabPage();
+            this.butFuncTool = new System.Windows.Forms.Button();
             this.butDoTest = new System.Windows.Forms.Button();
             this.txtTestOut = new System.Windows.Forms.TextBox();
-            this.butFuncTool = new System.Windows.Forms.Button();
+            this.butFuncNativa = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tbPgSql.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvFilesOnServer)).BeginInit();
@@ -99,6 +100,7 @@
             // 
             // tbPgSps
             // 
+            this.tbPgSps.Controls.Add(this.butFuncNativa);
             this.tbPgSps.Controls.Add(this.butReadCursor);
             this.tbPgSps.Controls.Add(this.butOutParam);
             this.tbPgSps.Controls.Add(this.txtOutput);
@@ -114,7 +116,7 @@
             // butReadCursor
             // 
             this.butReadCursor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butReadCursor.Location = new System.Drawing.Point(226, 461);
+            this.butReadCursor.Location = new System.Drawing.Point(417, 461);
             this.butReadCursor.Name = "butReadCursor";
             this.butReadCursor.Size = new System.Drawing.Size(170, 40);
             this.butReadCursor.TabIndex = 2;
@@ -157,6 +159,17 @@
             this.tbPgTest.Text = "Test";
             this.tbPgTest.UseVisualStyleBackColor = true;
             // 
+            // butFuncTool
+            // 
+            this.butFuncTool.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butFuncTool.Location = new System.Drawing.Point(260, 461);
+            this.butFuncTool.Name = "butFuncTool";
+            this.butFuncTool.Size = new System.Drawing.Size(215, 40);
+            this.butFuncTool.TabIndex = 5;
+            this.butFuncTool.Text = "Test Sps Function";
+            this.butFuncTool.UseVisualStyleBackColor = true;
+            this.butFuncTool.Click += new System.EventHandler(this.butFuncTool_Click);
+            // 
             // butDoTest
             // 
             this.butDoTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -180,16 +193,16 @@
             this.txtTestOut.Size = new System.Drawing.Size(885, 434);
             this.txtTestOut.TabIndex = 3;
             // 
-            // butFuncTool
+            // butFuncNativa
             // 
-            this.butFuncTool.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butFuncTool.Location = new System.Drawing.Point(260, 461);
-            this.butFuncTool.Name = "butFuncTool";
-            this.butFuncTool.Size = new System.Drawing.Size(215, 40);
-            this.butFuncTool.TabIndex = 5;
-            this.butFuncTool.Text = "Test Sps Function";
-            this.butFuncTool.UseVisualStyleBackColor = true;
-            this.butFuncTool.Click += new System.EventHandler(this.butFuncTool_Click);
+            this.butFuncNativa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butFuncNativa.Location = new System.Drawing.Point(231, 461);
+            this.butFuncNativa.Name = "butFuncNativa";
+            this.butFuncNativa.Size = new System.Drawing.Size(170, 40);
+            this.butFuncNativa.TabIndex = 3;
+            this.butFuncNativa.Text = "Function";
+            this.butFuncNativa.UseVisualStyleBackColor = true;
+            this.butFuncNativa.Click += new System.EventHandler(this.butFuncNativa_Click);
             // 
             // Form1
             // 
@@ -226,6 +239,7 @@
         private System.Windows.Forms.Button butDoTest;
         private System.Windows.Forms.TextBox txtTestOut;
         private System.Windows.Forms.Button butFuncTool;
+        private System.Windows.Forms.Button butFuncNativa;
     }
 }
 

@@ -1,10 +1,7 @@
-﻿using Oracle.DataAccess.Client;
+﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
 
 namespace DbConnFactory
 {
@@ -82,9 +79,11 @@ namespace DbConnFactory
                 case DbType.Int64:
                     res = OracleDbType.Int64;
                     break;
+                //TODO: Falta resolver este problema
+                /*
                 case DbType.Object:
                     res = OracleDbType.Object;
-                    break;
+                    break;*/
                 case DbType.SByte:
                     throw new NotSupportedException();
                 case DbType.Single:
